@@ -27,10 +27,11 @@ public class CompanyEmployeeService extends ServiceManager<CompanyEmployee,Long>
                 .employeeId(employeeId)
                 .build());
     }
-    public void delete(Long employeeId){
+    public Boolean delete(Long employeeId){
         Optional<CompanyEmployee> companyEmployee=companyEmployeeRepository.findOptionalByEmployeeId(employeeId);
         if (companyEmployee.isPresent()) {
             deleteById(companyEmployee.get().getId());
+            return true;
         }
         throw new EmployeeException(ErrorType.DATA_NOT_FOUND);
     }

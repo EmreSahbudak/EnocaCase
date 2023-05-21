@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 
 @Entity
 @NoArgsConstructor
@@ -18,11 +17,15 @@ public class Employee extends Base{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long employeeId;
-    private Long identityNumber;
+    @Column(unique = true)
+    private String identityNumber;
     private String name;
     private String surname;
+    @Column(unique = true)
     private String email;
+    @Column(unique = true)
     private String phone;
     private String department;
+    private Long companyId;
 
 }

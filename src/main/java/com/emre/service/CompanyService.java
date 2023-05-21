@@ -26,9 +26,6 @@ public class CompanyService extends ServiceManager<Company,Long> {
 
     public Company save(SaveCompanyRequestDto dto){
         Company company= save(ICompanyMapper.INSTANCE.toCompany(dto));
-        /*dto.getEmployeeIds().forEach(employeeId ->{
-            companyEmployeeService.save(company.getCompanyId(),employeeId);
-        });*/
         return company;
     }
     public Boolean delete(Long companyId){
@@ -40,8 +37,8 @@ public class CompanyService extends ServiceManager<Company,Long> {
         }
         throw new CompanyException(ErrorType.COMPANY_NOT_FOUND);
     }
-    public Boolean update(UpdateCompanyRequestDto dto){
-        Optional<Company> optionalCompany=companyRepository.findOptionalByCompanyId(dto.getCompanyId());
+    public Boolean update(Long companyId,UpdateCompanyRequestDto dto){
+        Optional<Company> optionalCompany=companyRepository.findOptionalByCompanyId(companyId);
         if (optionalCompany.isPresent()) {
             update(ICompanyMapper.INSTANCE.toUpdateCompany(dto,optionalCompany.get()));
             return true;

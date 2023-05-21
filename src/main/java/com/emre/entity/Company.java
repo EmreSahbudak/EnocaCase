@@ -1,7 +1,6 @@
 package com.emre.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -19,8 +18,10 @@ public class Company extends Base{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long companyId;
     private String companyName;
+    @Column(unique = true)
     private String email;
     private String address;
+    @Column(unique = true)
     private String phone;
     private String companyIndustry;
 }

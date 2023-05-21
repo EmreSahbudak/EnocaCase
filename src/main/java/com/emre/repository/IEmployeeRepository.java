@@ -9,7 +9,7 @@ import java.util.Optional;
 @Repository
 public interface IEmployeeRepository extends JpaRepository<Employee,Long> {
 
-    Optional<Employee> findOptionalByIdentityNumber(Long identityNumber);
+    Optional<Employee> findOptionalByIdentityNumber(String identityNumber);
 
     Optional<Employee> findOptionalByEmployeeId(Long employeeId);
 

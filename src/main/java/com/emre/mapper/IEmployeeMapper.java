@@ -2,6 +2,7 @@ package com.emre.mapper;
 
 import com.emre.dto.request.SaveEmployeeRequestDto;
 import com.emre.dto.request.UpdateEmployeeRequestDto;
+import com.emre.dto.response.UpdateEmployeeResponseDto;
 import com.emre.entity.Employee;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
@@ -15,4 +16,6 @@ public interface IEmployeeMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     Employee toUpdateEmployee(final UpdateEmployeeRequestDto dto, @MappingTarget Employee employee);
+
+    UpdateEmployeeResponseDto toUpdateEmployeeResponseDto(final Employee employee);
 }

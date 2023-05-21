@@ -2,6 +2,7 @@ package com.emre.service;
 
 import com.emre.dto.request.SaveEmployeeRequestDto;
 import com.emre.dto.request.UpdateEmployeeRequestDto;
+import com.emre.dto.response.UpdateEmployeeResponseDto;
 import com.emre.entity.Employee;
 import com.emre.exception.EmployeeException;
 import com.emre.exception.ErrorType;
@@ -28,7 +29,6 @@ public class EmployeeService extends ServiceManager<Employee,Long> {
         if (optionalEmployee.isEmpty()){
             Employee employee=save(IEmployeeMapper.INSTANCE.toEmployee(dto));
             companyEmployeeService.save(dto.getCompanyId(),employee.getEmployeeId());
-            System.out.println(employee);
             return true;
         }
         throw new EmployeeException(ErrorType.EMPLOYEE_DUPLICATE);
@@ -44,11 +44,11 @@ public class EmployeeService extends ServiceManager<Employee,Long> {
         throw new EmployeeException(ErrorType.EMPLOYEE_NOT_FOUND);
     }
 
-    public Boolean update(UpdateEmployeeRequestDto dto){
-        Optional<Employee> optionalEmployee=employeeRepository.findOptionalByEmployeeId(dto.getEmployeeId());
+    public UpdateEmployeeResponseDto update(Long employeeId, UpdateEmployeeRequestDto dto){
+        Optional<Employee> optionalEmployee=employeeRepository.findOptionalByEmployeeId(employeeId);
         if (optionalEmployee.isPresent()){
             update(IEmployeeMapper.INSTANCE.toUpdateEmployee(dto,optionalEmployee.get()));
-            return true;
+            return IEmployeeMapper.INSTANCE.toUpdateEmployeeResponseDto(optionalEmployee.get());
         }
         throw new EmployeeException(ErrorType.EMPLOYEE_NOT_FOUND);
     }
